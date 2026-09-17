@@ -1,0 +1,18 @@
+2026-04-17 13:07:46 | INFO | model=linear event=training_complete training_time_s=0.171 test_accuracy=0.8417
+2026-04-17 13:07:46 | INFO | model=mlp event=training_complete training_time_s=0.173 test_accuracy=0.9528
+2026-04-17 13:07:47 | INFO | model=cnn event=training_complete training_time_s=0.786 test_accuracy=0.4167
+2026-04-17 13:07:49 | INFO | model=cnn_plus event=training_complete training_time_s=1.500 test_accuracy=0.7028
+2026-04-17 13:07:49 | INFO | model=linear event=benchmark_complete batch_size=1 p95_sample_ms=0.0681 accuracy=0.8417
+2026-04-17 13:07:49 | INFO | model=linear event=benchmark_complete batch_size=16 p95_sample_ms=0.0146 accuracy=0.8417
+2026-04-17 13:07:49 | INFO | model=linear event=benchmark_complete batch_size=64 p95_sample_ms=0.0200 accuracy=0.8417
+2026-04-17 13:07:49 | INFO | model=mlp event=benchmark_complete batch_size=1 p95_sample_ms=0.1003 accuracy=0.9528
+2026-04-17 13:07:49 | INFO | model=mlp event=benchmark_complete batch_size=16 p95_sample_ms=0.0152 accuracy=0.9528
+2026-04-17 13:07:49 | INFO | model=mlp event=benchmark_complete batch_size=64 p95_sample_ms=0.0081 accuracy=0.9528
+2026-04-17 13:07:49 | INFO | model=cnn event=benchmark_complete batch_size=1 p95_sample_ms=0.2117 accuracy=0.4167
+2026-04-17 13:07:50 | INFO | model=cnn event=benchmark_complete batch_size=16 p95_sample_ms=0.0251 accuracy=0.4167
+2026-04-17 13:07:50 | INFO | model=cnn event=benchmark_complete batch_size=64 p95_sample_ms=0.0145 accuracy=0.4167
+2026-04-17 13:07:50 | INFO | model=cnn_plus event=benchmark_complete batch_size=1 p95_sample_ms=0.5803 accuracy=0.7028
+2026-04-17 13:07:50 | INFO | model=cnn_plus event=benchmark_complete batch_size=16 p95_sample_ms=0.0613 accuracy=0.7028
+2026-04-17 13:07:50 | INFO | model=cnn_plus event=benchmark_complete batch_size=64 p95_sample_ms=0.0348 accuracy=0.7028
+2026-04-17 13:07:52 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/balanced_benchmark_20260417_170745_559479/figures
+2026-04-17 13:08:24 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/balanced_benchmark_20260417_170745_559479/figures

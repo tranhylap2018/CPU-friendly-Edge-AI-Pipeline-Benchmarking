@@ -1,0 +1,8 @@
+{
+  "findings": [
+    "Fastest pipeline: linear at 0.01 ms/sample.",
+    "Highest accuracy: mlp at 0.953.",
+    "Best tail latency: linear with p95 = 0.02 ms.",
+    "Best policy latency: edge_only at 0.01 ms."
+  ]
+}

@@ -1,0 +1,13 @@
+2026-04-09 12:35:23 | INFO | model=linear event=training_complete training_time_s=0.158 test_accuracy=0.6972
+2026-04-09 12:35:23 | INFO | model=mlp event=training_complete training_time_s=0.114 test_accuracy=0.9167
+2026-04-09 12:35:24 | INFO | model=cnn event=training_complete training_time_s=0.529 test_accuracy=0.2083
+2026-04-09 12:35:24 | INFO | model=linear event=benchmark_complete batch_size=1 p95_sample_ms=0.0730 accuracy=0.6972
+2026-04-09 12:35:24 | INFO | model=linear event=benchmark_complete batch_size=8 p95_sample_ms=0.0222 accuracy=0.6972
+2026-04-09 12:35:24 | INFO | model=linear event=benchmark_complete batch_size=32 p95_sample_ms=0.0139 accuracy=0.6972
+2026-04-09 12:35:24 | INFO | model=mlp event=benchmark_complete batch_size=1 p95_sample_ms=0.0879 accuracy=0.9167
+2026-04-09 12:35:24 | INFO | model=mlp event=benchmark_complete batch_size=8 p95_sample_ms=0.0274 accuracy=0.9167
+2026-04-09 12:35:24 | INFO | model=mlp event=benchmark_complete batch_size=32 p95_sample_ms=0.0109 accuracy=0.9167
+2026-04-09 12:35:24 | INFO | model=cnn event=benchmark_complete batch_size=1 p95_sample_ms=0.2185 accuracy=0.2083
+2026-04-09 12:35:24 | INFO | model=cnn event=benchmark_complete batch_size=8 p95_sample_ms=0.0470 accuracy=0.2083
+2026-04-09 12:35:24 | INFO | model=cnn event=benchmark_complete batch_size=32 p95_sample_ms=0.0224 accuracy=0.2083
+2026-04-09 12:36:03 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/baseline_quick_20260409_163522/figures

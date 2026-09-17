@@ -1,0 +1,72 @@
+experiment:
+  name: edge_cloud_tradeoff
+  seed: 42
+  deterministic: true
+  device: cpu
+  num_workers: 0
+  notes: Hybrid routing benchmark for latency/accuracy tradeoffs.
+dataset:
+  name: digits
+  track: domain_agnostic
+  auto_download: true
+  cache_processed: true
+  val_split: 0.15
+  test_size: 0.2
+models:
+  names:
+  - linear
+  - mlp
+  - cnn
+  - cnn_plus
+training:
+  epochs: 6
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  early_stopping_patience: 3
+benchmark:
+  split: test
+  batch_sizes:
+  - 1
+  - 8
+  - 32
+  primary_batch_size: 8
+  warmup_batches: 2
+  repetitions: 4
+  track_memory: true
+offload:
+  enabled: true
+  edge_model: linear
+  cloud_model: cnn_plus
+  hybrid_secondary_model: cnn
+  confidence_threshold: 0.82
+  network:
+    uplink_mbps: 8.0
+    downlink_mbps: 20.0
+    round_trip_ms: 45.0
+    server_processing_ms: 18.0
+    response_bytes: 128
+    use_measured_cloud_inference: false
+analysis:
+  save_confusion_matrix: true
+  poster_title: Edge/Cloud Tradeoff Benchmark
+  motivation: Study when hybrid routing helps under realistic latency and bandwidth
+    assumptions.
+  finding_count: 4
+_meta:
+  config_path: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/configs/edge_cloud_tradeoff.yaml
+  project_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking
+  timestamp_utc: '20260808_102445'
+paths:
+  project_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking
+  data_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/data
+  results_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/results
+  figures_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/figures
+  reports_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/reports

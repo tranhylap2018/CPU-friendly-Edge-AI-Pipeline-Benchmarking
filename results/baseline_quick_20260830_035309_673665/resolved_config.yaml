@@ -1,0 +1,70 @@
+experiment:
+  name: baseline_quick
+  seed: 42
+  deterministic: true
+  device: cpu
+  num_workers: 0
+  notes: Quick digits benchmark for validating the pipeline.
+dataset:
+  name: digits
+  track: domain_agnostic
+  auto_download: true
+  cache_processed: true
+  val_split: 0.15
+  test_size: 0.2
+models:
+  names:
+  - linear
+  - mlp
+  - cnn
+training:
+  epochs: 4
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  early_stopping_patience: 2
+benchmark:
+  split: test
+  batch_sizes:
+  - 1
+  - 8
+  - 32
+  primary_batch_size: 8
+  warmup_batches: 1
+  repetitions: 2
+  track_memory: true
+offload:
+  enabled: true
+  edge_model: linear
+  cloud_model: cnn
+  hybrid_secondary_model: null
+  confidence_threshold: 0.9
+  network:
+    uplink_mbps: 12.0
+    downlink_mbps: 40.0
+    round_trip_ms: 30.0
+    server_processing_ms: 12.0
+    response_bytes: 128
+    use_measured_cloud_inference: false
+analysis:
+  save_confusion_matrix: true
+  poster_title: CPU-Friendly Edge AI Pipeline Benchmarking
+  motivation: Quick reproducible benchmark of full edge AI pipelines on CPU-only hardware.
+  finding_count: 4
+_meta:
+  config_path: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/configs/baseline_threshold_090.yaml
+  project_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking
+  timestamp_utc: '20260830_035309'
+paths:
+  project_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking
+  data_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/data
+  results_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/results
+  figures_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/figures
+  reports_root: /Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly
+    Edge AI Pipeline Benchmarking/reports

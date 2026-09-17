@@ -1,0 +1,47 @@
+[
+  {
+    "policy": "edge_only",
+    "accuracy": 0.5317271801832372,
+    "f1_macro": 0.514410442844091,
+    "mean_latency_ms": 0.015085559826272198,
+    "p50_latency_ms": 0.013744807802140713,
+    "p95_latency_ms": 0.020862003788352013,
+    "p99_latency_ms": 0.032682307064533234,
+    "throughput_samples_per_s": 66288.55750241724,
+    "offloaded_fraction": 0.0,
+    "bandwidth_kb_per_sample": 0.0,
+    "edge_model": "linear",
+    "cloud_model": "gru",
+    "hybrid_secondary_model": "cnn"
+  },
+  {
+    "policy": "cloud_only",
+    "accuracy": 0.8907363420427553,
+    "f1_macro": 0.8909875578220929,
+    "mean_latency_ms": 78.27657894656178,
+    "p50_latency_ms": 78.27622985839844,
+    "p95_latency_ms": 78.27828979492188,
+    "p99_latency_ms": 78.2795181274414,
+    "throughput_samples_per_s": 12.775213396623844,
+    "offloaded_fraction": 1.0,
+    "bandwidth_kb_per_sample": 4.75,
+    "edge_model": "linear",
+    "cloud_model": "gru",
+    "hybrid_secondary_model": "cnn"
+  },
+  {
+    "policy": "hybrid",
+    "accuracy": 0.8965049202578894,
+    "f1_macro": 0.8970963086352,
+    "mean_latency_ms": 0.1499349171043575,
+    "p50_latency_ms": 0.20036977529525757,
+    "p95_latency_ms": 0.2157551348209381,
+    "p99_latency_ms": 0.22810687124729156,
+    "throughput_samples_per_s": 6669.560495398023,
+    "offloaded_fraction": 0.7125890736342043,
+    "bandwidth_kb_per_sample": 0.0,
+    "edge_model": "linear",
+    "cloud_model": "gru",
+    "hybrid_secondary_model": "cnn"
+  }
+]

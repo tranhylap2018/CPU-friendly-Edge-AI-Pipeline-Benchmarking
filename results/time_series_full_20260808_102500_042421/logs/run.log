@@ -1,0 +1,18 @@
+2026-08-08 17:25:01 | INFO | model=linear event=early_stop epoch=7 best_val_loss=0.9993
+2026-08-08 17:25:01 | INFO | model=linear event=training_complete training_time_s=0.595 test_accuracy=0.5317
+2026-08-08 17:25:03 | INFO | model=mlp event=training_complete training_time_s=1.706 test_accuracy=0.9094
+2026-08-08 17:25:14 | INFO | model=cnn event=training_complete training_time_s=11.335 test_accuracy=0.8999
+2026-08-08 17:25:30 | INFO | model=gru event=training_complete training_time_s=15.303 test_accuracy=0.8907
+2026-08-08 17:25:31 | INFO | model=linear event=benchmark_complete batch_size=1 p95_sample_ms=0.0676 accuracy=0.5317
+2026-08-08 17:25:31 | INFO | model=linear event=benchmark_complete batch_size=16 p95_sample_ms=0.0165 accuracy=0.5317
+2026-08-08 17:25:31 | INFO | model=linear event=benchmark_complete batch_size=64 p95_sample_ms=0.0087 accuracy=0.5317
+2026-08-08 17:25:33 | INFO | model=mlp event=benchmark_complete batch_size=1 p95_sample_ms=0.1080 accuracy=0.9094
+2026-08-08 17:25:33 | INFO | model=mlp event=benchmark_complete batch_size=16 p95_sample_ms=0.0251 accuracy=0.9094
+2026-08-08 17:25:33 | INFO | model=mlp event=benchmark_complete batch_size=64 p95_sample_ms=0.0135 accuracy=0.9094
+2026-08-08 17:25:36 | INFO | model=cnn event=benchmark_complete batch_size=1 p95_sample_ms=0.2085 accuracy=0.8999
+2026-08-08 17:25:38 | INFO | model=cnn event=benchmark_complete batch_size=16 p95_sample_ms=0.2189 accuracy=0.8999
+2026-08-08 17:25:40 | INFO | model=cnn event=benchmark_complete batch_size=64 p95_sample_ms=0.2343 accuracy=0.8999
+2026-08-08 17:25:57 | INFO | model=gru event=benchmark_complete batch_size=1 p95_sample_ms=1.5133 accuracy=0.8907
+2026-08-08 17:26:00 | INFO | model=gru event=benchmark_complete batch_size=16 p95_sample_ms=0.2147 accuracy=0.8907
+2026-08-08 17:26:01 | INFO | model=gru event=benchmark_complete batch_size=64 p95_sample_ms=0.1219 accuracy=0.8907
+2026-08-08 17:26:03 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/time_series_full_20260808_102500_042421/figures

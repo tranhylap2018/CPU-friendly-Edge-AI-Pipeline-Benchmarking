@@ -1,0 +1,5 @@
+model,model_label,training_time_s,best_val_loss,test_accuracy,test_f1_macro,checkpoint_path
+linear,Linear baseline,0.5862077500205487,0.9993046257230971,0.5317271801832372,0.514410442844091,/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/time_series_full_20260409_163702/models/linear.pt
+mlp,Small MLP,1.7341687500011176,0.10745799955394533,0.9093993892093655,0.9090587213677069,/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/time_series_full_20260409_163702/models/mlp.pt
+cnn,1D CNN,14.159777084132656,0.12896806374192238,0.8998982015609094,0.9001476896425672,/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/time_series_full_20260409_163702/models/cnn.pt
+gru,Small GRU,17.316340165911242,0.15919484860367245,0.8907363420427553,0.8909875578220929,/Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/time_series_full_20260409_163702/models/gru.pt

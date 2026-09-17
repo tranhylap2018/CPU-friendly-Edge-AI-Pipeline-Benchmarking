@@ -1,0 +1,72 @@
+experiment:
+  name: balanced_benchmark
+  seed: 42
+  deterministic: true
+  device: cpu
+  num_workers: 0
+  notes: Main digits benchmark for portfolio artifacts.
+dataset:
+  name: digits
+  track: domain_agnostic
+  auto_download: true
+  cache_processed: true
+  val_split: 0.15
+  test_size: 0.2
+models:
+  names:
+  - linear
+  - mlp
+  - cnn
+  - cnn_plus
+training:
+  epochs: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 64
+  early_stopping_patience: 3
+benchmark:
+  split: test
+  batch_sizes:
+  - 1
+  - 16
+  - 64
+  primary_batch_size: 16
+  warmup_batches: 2
+  repetitions: 4
+  track_memory: true
+offload:
+  enabled: true
+  edge_model: linear
+  cloud_model: cnn_plus
+  hybrid_secondary_model: cnn
+  confidence_threshold: 0.8
+  network:
+    uplink_mbps: 15.0
+    downlink_mbps: 50.0
+    round_trip_ms: 28.0
+    server_processing_ms: 14.0
+    response_bytes: 128
+    use_measured_cloud_inference: false
+analysis:
+  save_confusion_matrix: true
+  poster_title: Balanced Edge AI Benchmark on Digits
+  motivation: Compare accuracy, latency, and pipeline overheads across four CPU-friendly
+    models.
+  finding_count: 4
+_meta:
+  config_path: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI
+    Pipeline Benchmarking/configs/balanced_benchmark.yaml
+  project_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking
+  timestamp_utc: '20260417_170628'
+paths:
+  project_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking
+  data_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI
+    Pipeline Benchmarking/data
+  results_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/results
+  figures_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/figures
+  reports_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/reports

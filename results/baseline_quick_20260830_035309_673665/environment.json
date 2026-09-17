@@ -1,0 +1,18 @@
+{
+  "python_version": "3.12.1 (v3.12.1:2305ca5144, Dec  7 2023, 17:23:38) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "platform": "macOS-15.0-arm64-arm-64bit",
+  "processor": "arm",
+  "python_executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+  "cwd": "/Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "matplotlib": "3.10.8",
+    "psutil": "7.2.2",
+    "PyYAML": "6.0.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.7.1",
+    "tqdm": "4.67.3"
+  },
+  "torch_num_threads": 4
+}

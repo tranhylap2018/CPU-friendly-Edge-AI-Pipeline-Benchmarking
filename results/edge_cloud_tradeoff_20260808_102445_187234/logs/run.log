@@ -1,0 +1,17 @@
+2026-08-08 17:24:46 | INFO | model=linear event=training_complete training_time_s=0.143 test_accuracy=0.7861
+2026-08-08 17:24:46 | INFO | model=mlp event=training_complete training_time_s=0.144 test_accuracy=0.9417
+2026-08-08 17:24:46 | INFO | model=cnn event=training_complete training_time_s=0.562 test_accuracy=0.3611
+2026-08-08 17:24:48 | INFO | model=cnn_plus event=training_complete training_time_s=1.114 test_accuracy=0.6417
+2026-08-08 17:24:48 | INFO | model=linear event=benchmark_complete batch_size=1 p95_sample_ms=0.0664 accuracy=0.7861
+2026-08-08 17:24:48 | INFO | model=linear event=benchmark_complete batch_size=8 p95_sample_ms=0.0203 accuracy=0.7861
+2026-08-08 17:24:48 | INFO | model=linear event=benchmark_complete batch_size=32 p95_sample_ms=0.0083 accuracy=0.7861
+2026-08-08 17:24:48 | INFO | model=mlp event=benchmark_complete batch_size=1 p95_sample_ms=0.0919 accuracy=0.9417
+2026-08-08 17:24:48 | INFO | model=mlp event=benchmark_complete batch_size=8 p95_sample_ms=0.0232 accuracy=0.9417
+2026-08-08 17:24:48 | INFO | model=mlp event=benchmark_complete batch_size=32 p95_sample_ms=0.0114 accuracy=0.9417
+2026-08-08 17:24:48 | INFO | model=cnn event=benchmark_complete batch_size=1 p95_sample_ms=0.1852 accuracy=0.3611
+2026-08-08 17:24:48 | INFO | model=cnn event=benchmark_complete batch_size=8 p95_sample_ms=0.0412 accuracy=0.3611
+2026-08-08 17:24:48 | INFO | model=cnn event=benchmark_complete batch_size=32 p95_sample_ms=0.0183 accuracy=0.3611
+2026-08-08 17:24:49 | INFO | model=cnn_plus event=benchmark_complete batch_size=1 p95_sample_ms=0.2338 accuracy=0.6417
+2026-08-08 17:24:49 | INFO | model=cnn_plus event=benchmark_complete batch_size=8 p95_sample_ms=0.0619 accuracy=0.6417
+2026-08-08 17:24:49 | INFO | model=cnn_plus event=benchmark_complete batch_size=32 p95_sample_ms=0.0424 accuracy=0.6417
+2026-08-08 17:24:51 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/edge_cloud_tradeoff_20260808_102445_187234/figures

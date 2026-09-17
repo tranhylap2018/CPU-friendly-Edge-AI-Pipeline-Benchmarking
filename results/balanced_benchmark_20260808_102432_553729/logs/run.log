@@ -1,0 +1,17 @@
+2026-08-08 17:24:33 | INFO | model=linear event=training_complete training_time_s=0.172 test_accuracy=0.8417
+2026-08-08 17:24:33 | INFO | model=mlp event=training_complete training_time_s=0.188 test_accuracy=0.9528
+2026-08-08 17:24:34 | INFO | model=cnn event=training_complete training_time_s=0.764 test_accuracy=0.4167
+2026-08-08 17:24:35 | INFO | model=cnn_plus event=training_complete training_time_s=1.443 test_accuracy=0.7028
+2026-08-08 17:24:36 | INFO | model=linear event=benchmark_complete batch_size=1 p95_sample_ms=0.0656 accuracy=0.8417
+2026-08-08 17:24:36 | INFO | model=linear event=benchmark_complete batch_size=16 p95_sample_ms=0.0163 accuracy=0.8417
+2026-08-08 17:24:36 | INFO | model=linear event=benchmark_complete batch_size=64 p95_sample_ms=0.0070 accuracy=0.8417
+2026-08-08 17:24:36 | INFO | model=mlp event=benchmark_complete batch_size=1 p95_sample_ms=0.0938 accuracy=0.9528
+2026-08-08 17:24:36 | INFO | model=mlp event=benchmark_complete batch_size=16 p95_sample_ms=0.0180 accuracy=0.9528
+2026-08-08 17:24:36 | INFO | model=mlp event=benchmark_complete batch_size=64 p95_sample_ms=0.0086 accuracy=0.9528
+2026-08-08 17:24:36 | INFO | model=cnn event=benchmark_complete batch_size=1 p95_sample_ms=0.1889 accuracy=0.4167
+2026-08-08 17:24:36 | INFO | model=cnn event=benchmark_complete batch_size=16 p95_sample_ms=0.0272 accuracy=0.4167
+2026-08-08 17:24:36 | INFO | model=cnn event=benchmark_complete batch_size=64 p95_sample_ms=0.0138 accuracy=0.4167
+2026-08-08 17:24:37 | INFO | model=cnn_plus event=benchmark_complete batch_size=1 p95_sample_ms=0.2674 accuracy=0.7028
+2026-08-08 17:24:37 | INFO | model=cnn_plus event=benchmark_complete batch_size=16 p95_sample_ms=0.0545 accuracy=0.7028
+2026-08-08 17:24:37 | INFO | model=cnn_plus event=benchmark_complete batch_size=64 p95_sample_ms=0.0322 accuracy=0.7028
+2026-08-08 17:24:39 | INFO | event=analysis_complete figures_dir=/Users/tranhylap/Desktop/Project/Edge AI/Benchmarking/CPU-friendly Edge AI Pipeline Benchmarking/results/balanced_benchmark_20260808_102432_553729/figures

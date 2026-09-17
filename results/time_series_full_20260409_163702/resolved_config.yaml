@@ -1,0 +1,72 @@
+experiment:
+  name: time_series_full
+  seed: 42
+  deterministic: true
+  device: cpu
+  num_workers: 0
+  notes: Full UCI HAR benchmark for the sensor-data track.
+dataset:
+  name: uci_har
+  track: time_series
+  auto_download: true
+  cache_processed: true
+  val_split: 0.15
+  test_size: 0.2
+models:
+  names:
+  - linear
+  - mlp
+  - cnn
+  - gru
+training:
+  epochs: 10
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 128
+  early_stopping_patience: 3
+benchmark:
+  split: test
+  batch_sizes:
+  - 1
+  - 16
+  - 64
+  primary_batch_size: 16
+  warmup_batches: 2
+  repetitions: 4
+  track_memory: true
+offload:
+  enabled: true
+  edge_model: linear
+  cloud_model: gru
+  hybrid_secondary_model: cnn
+  confidence_threshold: 0.85
+  network:
+    uplink_mbps: 6.0
+    downlink_mbps: 16.0
+    round_trip_ms: 50.0
+    server_processing_ms: 22.0
+    response_bytes: 256
+    use_measured_cloud_inference: false
+analysis:
+  save_confusion_matrix: true
+  poster_title: UCI HAR Edge AI Benchmark
+  motivation: Measure model and pipeline tradeoffs for time-series sensor inference
+    on CPU.
+  finding_count: 4
+_meta:
+  config_path: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI
+    Pipeline Benchmarking/configs/time_series_full.yaml
+  project_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking
+  timestamp_utc: '20260409_163702'
+paths:
+  project_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking
+  data_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge AI
+    Pipeline Benchmarking/data
+  results_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/results
+  figures_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/figures
+  reports_root: /Users/tranhylap/Documents/Edge AI/Benchmarking/CPU-friendly Edge
+    AI Pipeline Benchmarking/reports
