@@ -1,296 +1,577 @@
 # CPU-Friendly Edge AI Pipeline Benchmarking
 
-A complete, runnable, research-oriented benchmarking suite for studying edge AI pipelines on CPU-only hardware. The project is designed for a sophomore building undergraduate research assistant skills in areas such as computer systems, cyber-physical systems, machine learning systems, hardware/software interaction, and real-time evaluation.
+A reproducible benchmarking framework for evaluating lightweight machine-learning pipelines under CPU-constrained edge-computing conditions.
 
-## Why This Project Exists
+The project measures the complete inference workflow — from data loading and preprocessing to model inference, postprocessing, and optional edge/cloud routing — with a focus on both predictive performance and system-level efficiency.
 
-Most beginner ML projects stop at model accuracy. Edge AI work in ECE settings is broader: we care about *system tradeoffs under constraints*. This project treats an AI workflow as a full pipeline:
+Rather than optimizing only for accuracy, this project explores the trade-offs between model quality, latency, throughput, memory usage, model size, and deployment cost.
 
-`data loading -> preprocessing -> inference -> postprocessing -> optional edge/cloud routing -> metrics logging`
+---
 
-That framing makes it much more relevant to faculty interested in embedded intelligence, efficient systems, and deployment-aware machine learning.
+## Overview
 
-## Why This Fits Undergraduate Research Preparation
+The benchmark treats an Edge AI application as a complete system:
 
-- It teaches experiment design instead of only training scripts.
-- It measures latency, throughput, memory, and model size alongside accuracy.
-- It saves configs, environment metadata, and structured outputs for reproducibility.
-- It creates figures, summary tables, and a poster-style dashboard automatically.
-- It makes room for clear engineering discussion: where is the bottleneck, what changed, and why.
+```text
+Data Loading
+    ↓
+Preprocessing
+    ↓
+Model Inference
+    ↓
+Postprocessing
+    ↓
+Optional Edge / Cloud Routing
+    ↓
+Metrics and Artifact Logging
+```
 
-## Incremental Build Plan
+This makes it possible to study questions such as:
 
-This project can be developed in four phases:
+- How much latency comes from preprocessing versus inference?
+- How does model complexity affect tail latency?
+- How much accuracy is gained by using a larger model?
+- When does cloud offloading improve system performance?
+- When is a smaller model more appropriate for constrained hardware?
+- How do network assumptions affect edge/cloud trade-offs?
 
-1. Phase 1: structure, configs, README, requirements, CLI shape, and architecture.
-2. Phase 2: datasets, baseline models, training, benchmarking, and logging.
-3. Phase 3: plots, report assets, and poster-style summary figures.
-4. Phase 4: tests, documentation polish, and CLI usability.
+---
 
-The repository already follows that structure so each stage can be discussed and extended independently.
+## Key Features
 
-## Stack Choice
+- CPU-only benchmarking workflow
+- Config-driven experiments
+- Multiple datasets and model families
+- Stage-wise latency measurement
+- Throughput and memory analysis
+- Model parameter and serialized-size tracking
+- Accuracy and macro-F1 evaluation
+- Confidence-based edge/cloud routing simulation
+- Reproducible experiment metadata
+- Saved predictions, checkpoints, tables, and plots
+- Automated report and visualization generation
+- Unit tests for core utilities and workflow components
 
-This project uses **PyTorch + NumPy + scikit-learn utilities + matplotlib**.
+---
 
-Why PyTorch here instead of using only scikit-learn?
+## Technology Stack
 
-- A single framework can cover both benchmark tracks cleanly:
-  - domain-agnostic image benchmarking on `sklearn` digits
-  - time-series sensor benchmarking on UCI HAR
-- PyTorch makes it easy to implement a consistent progression of CPU-friendly models:
-  - linear baseline
-  - small MLP
-  - CNN
-  - GRU for time series
-- Parameter counting, checkpoint saving, and later extensions like ONNX export are much cleaner in one framework.
+The project uses:
 
-If the goal were only tabular benchmarking, scikit-learn would be simpler. Here, PyTorch is the better fit because the project intentionally spans multiple modalities while staying CPU-only.
+- Python
+- PyTorch
+- NumPy
+- scikit-learn utilities
+- matplotlib
+- PyYAML
+- pytest
+
+PyTorch is used as the primary modeling framework so the same benchmarking pipeline can support several lightweight architectures across image and time-series workloads.
+
+---
 
 ## Benchmark Tracks
 
-### 1. Domain-Agnostic Benchmark Mode
+### 1. Digits Benchmark
 
-Default dataset: **Digits** from `sklearn.datasets`
+Dataset:
 
-- zero-credential
-- tiny and fast
-- ideal for quick, reproducible smoke tests
-- useful for learning the benchmarking workflow before moving to sensor data
+**`sklearn.datasets.load_digits`**
 
-### 2. Time-Series Sensor Benchmark Mode
+This track provides a small, fast, and highly reproducible environment for testing the complete benchmarking workflow.
 
-Dataset: **UCI HAR (Human Activity Recognition Using Smartphones)**
+Models:
 
-- public academic dataset
-- lightweight enough for CPU laptops
-- includes inertial sensor windows suitable for edge AI discussion
-- automatically downloaded and cached by the project
+- `linear` — linear classifier baseline
+- `mlp` — small multilayer perceptron
+- `cnn` — lightweight convolutional neural network
+- `cnn_plus` — wider CNN variant
 
-## Models Included
+This track is useful for rapid experimentation and validating the benchmark pipeline before running larger experiments.
 
-### Digits track
+---
 
-- `linear`: linear classifier baseline
-- `mlp`: small multilayer perceptron
-- `cnn`: tiny CNN
-- `cnn_plus`: wider CNN
+### 2. UCI HAR Sensor Benchmark
 
-### UCI HAR track
+Dataset:
 
-- `linear`: linear baseline
-- `mlp`: small MLP
-- `cnn`: 1D CNN
-- `gru`: lightweight GRU
+**UCI Human Activity Recognition Using Smartphones**
 
-The point is not to chase state-of-the-art accuracy. The point is to compare models with increasing complexity and discuss whether the extra cost is worth it under deployment constraints.
+The dataset contains inertial-sensor windows collected from smartphone accelerometers and gyroscopes.
 
-## Metrics Reported
+Models:
 
-- training time
-- mean, p50, p95, p99 latency
-- per-sample and per-batch latency
-- throughput
-- peak RSS memory delta
-- model parameter count
-- serialized model size on disk
-- accuracy
-- macro F1
-- confusion matrix
-- data loading time
-- preprocessing time
-- inference time
-- postprocessing time
-- end-to-end latency
-- latency/accuracy ratio
-- efficiency score
-- simulated bandwidth usage
-- simulated offloading delay
+- `linear` — linear baseline
+- `mlp` — multilayer perceptron
+- `cnn` — lightweight 1D CNN
+- `gru` — lightweight recurrent model
 
-## Edge/Cloud Simulation
+This track provides a more realistic time-series workload for studying Edge AI and sensor-processing systems.
 
-The benchmark includes three system modes:
+Downloaded and processed dataset files are cached locally and are not required to be stored directly in the repository.
 
-- `edge_only`
-- `cloud_only`
-- `hybrid`
+---
 
-The hybrid policy uses a confidence threshold. A lightweight local model handles confident samples locally; lower-confidence samples are escalated either to a heavier local model or to a simulated cloud path, depending on the config.
+## Benchmark Metrics
 
-This is useful for discussing:
+The framework measures both machine-learning quality and system behavior.
 
-- when offloading helps
-- when it hurts
-- how network assumptions affect system behavior
-- how confidence-based routing changes the latency/accuracy tradeoff
+### Model Quality
+
+- Accuracy
+- Macro F1 score
+- Confusion matrix
+
+### Latency
+
+- Mean latency
+- P50 latency
+- P95 latency
+- P99 latency
+- Per-sample latency
+- Per-batch latency
+
+### Pipeline Timing
+
+- Data loading time
+- Preprocessing time
+- Inference time
+- Postprocessing time
+- End-to-end latency
+
+### Resource Usage
+
+- Peak RSS memory delta
+- Model parameter count
+- Serialized model size
+
+### Efficiency
+
+- Throughput
+- Latency / accuracy ratio
+- Efficiency score
+
+### Edge / Cloud Simulation
+
+- Simulated bandwidth usage
+- Simulated offloading delay
+- Local-processing fraction
+- Offloaded-sample behavior
+
+---
+
+## Edge / Cloud Simulation
+
+The benchmark supports three execution modes:
+
+```text
+edge_only
+cloud_only
+hybrid
+```
+
+### Edge Only
+
+All samples are processed locally.
+
+This represents a deployment where network communication is unavailable or undesirable.
+
+### Cloud Only
+
+Samples are evaluated through a simulated cloud path that includes configurable communication delay.
+
+### Hybrid
+
+A lightweight local model processes each input first.
+
+If the model confidence exceeds a configured threshold, the prediction is handled locally.
+
+Lower-confidence samples may be escalated to:
+
+- a heavier local model, or
+- a simulated cloud path
+
+depending on the experiment configuration.
+
+This allows the benchmark to explore the trade-off between:
+
+```text
+local efficiency
+        vs.
+higher-cost escalation
+        vs.
+predictive quality
+```
+
+---
+
+## Experiment Configurations
+
+Ready-to-run experiments are stored in:
+
+```text
+configs/
+```
+
+### `baseline_quick.yaml`
+
+Fast Digits benchmark for checking that the complete pipeline works correctly.
+
+### `balanced_benchmark.yaml`
+
+More complete Digits experiment using the available model variants.
+
+### `edge_cloud_tradeoff.yaml`
+
+Focuses on confidence-based routing and simulated network costs.
+
+### `time_series_full.yaml`
+
+Full UCI HAR time-series experiment using:
+
+```text
+linear
+mlp
+cnn
+gru
+```
+
+Configuration files control experiment settings so runs can be reproduced and compared consistently.
+
+---
 
 ## Installation
 
-Use Python 3.11+ in a virtual environment.
+Python 3.11+ is recommended.
+
+### macOS / Linux
+
+Create a virtual environment:
 
 ```bash
 python3 -m venv .venv
-.venv\Scripts\activate
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 python3 -m pip install -e .
 ```
 
-On macOS/Linux, activate the environment with:
+### Windows PowerShell
 
-```bash
-source .venv/bin/activate
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
+
+---
 
 ## Quick Start
 
-### 1. Prepare the default dataset cache
+### Prepare Data
 
 ```bash
 python3 main.py prepare-data --config configs/baseline_quick.yaml
 ```
 
-### 2. Run the full digits benchmark
+### Run a Quick Digits Benchmark
 
 ```bash
 python3 main.py run-all --config configs/baseline_quick.yaml
 ```
 
-### 3. Run the balanced digits benchmark
+### Run the Balanced Digits Benchmark
 
 ```bash
 python3 main.py run-all --config configs/balanced_benchmark.yaml
 ```
 
-### 4. Run the edge/cloud tradeoff experiment
+### Run the Edge / Cloud Trade-Off Experiment
 
 ```bash
 python3 main.py run-all --config configs/edge_cloud_tradeoff.yaml
 ```
 
-### 5. Run the full time-series experiment
+### Run the UCI HAR Time-Series Benchmark
 
 ```bash
 python3 main.py run-all --config configs/time_series_full.yaml
 ```
 
-### 6. Regenerate figures from a completed run
+### Regenerate Analysis for an Existing Run
 
 ```bash
-python3 main.py analyze --config configs/baseline_quick.yaml --run-dir results/<run_name>
+python3 main.py analyze \
+  --config configs/baseline_quick.yaml \
+  --run-dir results/<run_name>
 ```
 
-## CLI Commands
+---
 
-- `prepare-data`
-- `train`
-- `benchmark`
-- `analyze`
-- `make-report-assets`
-- `run-all`
+## CLI
 
-Each command accepts a config path. `run-all` is the easiest path for a first run.
+The main CLI supports:
 
-By default:
+```text
+prepare-data
+train
+benchmark
+analyze
+make-report-assets
+run-all
+```
 
-- `train` creates a fresh run directory
-- `benchmark` reuses the latest matching run if one already exists
-- `analyze` targets the latest matching run unless `--run-dir` is provided
+For most experiments, the easiest entry point is:
 
-## Project Structure
+```bash
+python3 main.py run-all --config <config>
+```
+
+The workflow is designed so individual stages can also be executed independently when debugging or analyzing experiments.
+
+---
+
+## Repository Structure
 
 ```text
 CPU-friendly Edge AI Pipeline Benchmarking/
-├── configs/                  # Ready-to-run experiment configs
-├── data/                     # Raw data, processed caches
-├── docs/                     # RA growth notes and supporting docs
-├── figures/                  # Exported portfolio-ready figures
-├── notebooks/                # Optional notebook area
-├── reports/                  # Report template and generated sample report
-├── results/                  # Per-run artifacts, metrics, logs, checkpoints
-├── scripts/                  # Helper scripts for repeatable workflows
-├── src/edge_bench/           # Package source code
-├── tests/                    # Unit tests for core utilities
-├── main.py                   # Root CLI wrapper
+│
+├── configs/
+│   └── Experiment configuration files
+│
+├── data/
+│   └── Local dataset downloads and processed caches
+│
+├── docs/
+│   └── Architecture and implementation documentation
+│
+├── figures/
+│   └── Exported benchmark visualizations
+│
+├── reports/
+│   └── Generated and template reports
+│
+├── results/
+│   └── Experiment metrics, checkpoints, logs, and artifacts
+│
+├── scripts/
+│   └── Helper scripts for repeatable workflows
+│
+├── src/
+│   └── edge_bench/
+│       └── Core benchmark package
+│
+├── tests/
+│   └── Unit and workflow tests
+│
+├── main.py
 ├── pyproject.toml
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
 
-## Experiment Guide
+Large downloaded datasets and local caches are excluded from version control.
 
-### `baseline_quick.yaml`
+---
 
-Fast smoke test on digits. Best for checking that the full workflow runs correctly on a laptop.
+## Experiment Outputs
 
-### `balanced_benchmark.yaml`
+A benchmark run can generate:
 
-A more complete digits benchmark with all four domain-agnostic models.
+- Resolved experiment configuration
+- Environment metadata
+- Training summary
+- Benchmark summary
+- Edge/cloud routing summary
+- Model checkpoints
+- Saved predictions
+- CSV metrics
+- Markdown summary tables
+- Benchmark visualizations
+- Generated reports
 
-### `edge_cloud_tradeoff.yaml`
+Raw experiment artifacts are stored under:
 
-Focuses on confidence-based hybrid routing and simulated network costs.
+```text
+results/
+```
 
-### `time_series_full.yaml`
+Reusable or presentation-oriented figures are stored under:
 
-The main time-series benchmark using UCI HAR and the full linear/MLP/CNN/GRU model set.
+```text
+figures/
+```
 
-## Interpretation Guide
+---
 
-When you review results, do not ask only “which model is best?” Ask:
+## How to Interpret the Results
 
-- Which model gives the best accuracy per millisecond?
-- Is preprocessing a significant fraction of total latency?
-- Which model has the worst tail latency?
-- Does the hybrid policy improve accuracy enough to justify added delay?
-- Would a smaller model be more appropriate for a stricter edge device?
+The goal of this project is not simply to identify the model with the highest accuracy.
 
-This is the systems-thinking mindset faculty often care about.
+A useful Edge AI comparison should consider several dimensions at the same time.
 
-## Output Artifacts
+For example:
 
-Each run stores:
+### Accuracy vs. Latency
 
-- resolved config
-- environment metadata
-- training summary
-- benchmark summary
-- offload summary
-- model checkpoints
-- saved predictions
-- plots
-- markdown summary tables
-- a generated sample report
+A larger model may improve accuracy while significantly increasing inference time.
 
-## Suggested Resume Bullet Points
+The useful question is:
 
-- Built a reproducible CPU-only edge AI benchmarking suite in Python and PyTorch to evaluate full inference pipelines under latency, throughput, memory, and model-size constraints.
-- Implemented config-driven experiments, confidence-based edge/cloud offload simulation, automated plotting, and poster-style report assets for deployment-aware model analysis.
-- Benchmarked lightweight linear, MLP, CNN, and GRU models across image and time-series datasets with structured logging, saved artifacts, and reproducible experiment metadata.
+> Is the additional predictive performance worth the additional latency?
 
-## Suggested Ways To Discuss This Project With Faculty
+### Average vs. Tail Latency
 
-- “I wanted a project that emphasized systems tradeoffs, not just training accuracy.”
-- “I measured stage-wise latency so I could separate preprocessing cost from inference cost.”
-- “I used a config-driven workflow because I wanted experiments to be rerunnable and comparable.”
-- “I added a hybrid offload policy to think about edge/cloud scheduling rather than only local inference.”
-- “I chose small CPU-friendly models because I wanted the evaluation setup to reflect realistic student hardware.”
+Mean latency alone can hide occasional slow predictions.
 
-## Future Extensions
+P95 and P99 latency help identify whether a model has unstable execution behavior.
 
-- ONNX export and ONNX Runtime benchmarking
-- quantized inference comparisons
-- online sensor-stream scheduling
-- energy estimation or power proxies
-- bootstrap confidence intervals
-- real network-backed cloud benchmarking
-- model compression experiments
+### Model Size vs. Performance
 
-## A Good Study Order For Students
+Smaller models may be preferable when memory, storage, or deployment constraints are more important than small differences in accuracy.
 
-1. `configs/baseline_quick.yaml`
-2. `src/edge_bench/cli.py`
-3. `src/edge_bench/pipeline/benchmark.py`
-4. `src/edge_bench/pipeline/offload.py`
-5. `src/edge_bench/pipeline/analysis.py`
+### Pipeline Bottlenecks
 
-That path helps you understand experiment control first, then timing methodology, then systems interpretation.
+Inference may not always dominate total runtime.
+
+Preprocessing, data movement, or postprocessing can become significant parts of end-to-end latency.
+
+### Edge vs. Cloud
+
+Cloud escalation may improve predictive quality but also introduces communication overhead.
+
+Hybrid policies attempt to balance these costs by processing confident inputs locally while escalating difficult inputs.
+
+---
+
+## Reproducibility
+
+The project is designed around repeatable experiments.
+
+Each benchmark configuration defines the experiment settings, while completed runs preserve metadata and structured outputs.
+
+The workflow records information such as:
+
+- Experiment configuration
+- Model parameters
+- Environment metadata
+- Benchmark metrics
+- Saved predictions
+- Generated artifacts
+
+This makes it easier to compare experiments without relying on manually recorded terminal output.
+
+---
+
+## Testing
+
+Run the test suite with:
+
+```bash
+pytest -q
+```
+
+The repository includes tests for areas such as:
+
+- CLI behavior
+- Configuration handling
+- Benchmark metrics
+- Edge/cloud offloading logic
+- Project structure
+- Reproducibility utilities
+
+---
+
+## Design Philosophy
+
+The benchmark intentionally uses relatively small models.
+
+The goal is not to reproduce state-of-the-art deep-learning systems.
+
+Instead, the project focuses on making system-level behavior easy to measure and interpret:
+
+```text
+model complexity
+      ↓
+latency
+      ↓
+memory
+      ↓
+throughput
+      ↓
+accuracy
+      ↓
+deployment trade-offs
+```
+
+This provides a foundation for studying more advanced Edge AI systems later.
+
+---
+
+## Current Limitations
+
+- Benchmarks currently focus on CPU execution.
+- Edge/cloud network behavior is simulated rather than measured over a real network.
+- The current benchmark does not directly measure hardware power consumption.
+- Results depend on the CPU and operating environment used for each run.
+- The included models are intentionally lightweight rather than production-scale architectures.
+- The benchmark does not yet evaluate specialized accelerators such as GPUs, NPUs, or embedded AI hardware.
+
+---
+
+## Future Work
+
+Potential extensions include:
+
+- ONNX export
+- ONNX Runtime benchmarking
+- INT8 quantization
+- Float32 vs. quantized inference comparisons
+- Raspberry Pi deployment
+- Embedded-device benchmarking
+- Hardware accelerator evaluation
+- Energy or power measurements
+- Online sensor-stream evaluation
+- Rolling latency analysis
+- Bootstrap confidence intervals
+- Model pruning
+- Model compression
+- Real network-backed cloud experiments
+- Dynamic offloading policies
+- Hardware-aware model selection
+
+---
+
+## Motivation
+
+Edge AI requires more than training an accurate model.
+
+Real deployment decisions involve interactions between:
+
+```text
+machine learning
+systems
+hardware constraints
+latency
+memory
+communication
+and workload characteristics
+```
+
+This project provides a controlled environment for studying those interactions while keeping the experiments small enough to run on ordinary CPU hardware.
+
+---
+
+## License
+
+This project is released under the MIT License.
+
+See `LICENSE` for details.
